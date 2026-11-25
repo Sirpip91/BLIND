@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/SteelPaint/temper.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Standing still"
+attacks = false
+guard_chance = 0.0
+parry_chance = 0.0
+counter_chance = 0.0
+punish_chance = 0.0
+think_better = 0.0
+wariness_per_cut = 0.0
+shell_time = 0.0

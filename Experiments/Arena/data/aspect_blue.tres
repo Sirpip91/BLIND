@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/player/aspect.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Sense"
+power = 0
+color = Color(0.08, 0.3, 0.85, 1)
+says = "Feel a blow coming from outside your view,
+at the edge it's coming from."

@@ -1,0 +1,13 @@
+﻿# Godot 4+ specific ignores
+.godot/
+.import/
+export.cfg
+export_presets.cfg
+
+# System/tool-specific ignores
+.DS_Store
+*.tmp
+.claude/
+
+# Blender autosave backups
+*.blend1

@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" path="res://Core/Wash/wash.gdshader" id="1"]
+
+[sub_resource type="ShaderMaterial" id="Wash_mat"]
+render_priority = 100
+shader = ExtResource("1")
+
+[sub_resource type="QuadMesh" id="Wash_quad"]
+material = SubResource("Wash_mat")
+size = Vector2(2, 2)
+
+[node name="WashPass" type="MeshInstance3D"]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+custom_aabb = AABB(-10000, -10000, -10000, 20000, 20000, 20000)
+ignore_occlusion_culling = true
+mesh = SubResource("Wash_quad")

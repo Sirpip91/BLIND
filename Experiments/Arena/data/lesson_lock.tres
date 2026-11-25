@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/lessons/lesson.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Experiments/Arena/lessons/lock.png" id="2"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/dummy.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+title = "Lock on"
+says = "Q keeps your eyes on him. Q again lets go.
+With several, throw the mouse far
+to one side to look to the next"
+teaches = 6
+film = ExtResource("2")
+place = Vector3(-3.2, 0, 6)
+kind = ExtResource("3")

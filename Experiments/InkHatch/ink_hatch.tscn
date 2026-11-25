@@ -1,0 +1,680 @@
+[gd_scene format=3 uid="uid://dbqnwkgcryf52"]
+
+[ext_resource type="PackedScene" uid="uid://b7robhe01wshq" path="res://Core/sandbox.tscn" id="1"]
+[ext_resource type="Script" uid="uid://c88f74pshj828" path="res://Experiments/InkHatch/ink_hatch.gd" id="2"]
+[ext_resource type="PackedScene" path="res://Core/Ink/ink_pass.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://crl61qbnti6ix" path="res://Assets/HatchCube/hatch_cube.glb" id="4"]
+[ext_resource type="Shader" uid="uid://cu4ch5xr6p75g" path="res://Experiments/InkHatch/swatch_hatch.gdshader" id="5"]
+[ext_resource type="Shader" uid="uid://7piifv7i22en" path="res://Experiments/InkHatch/as_painted.gdshader" id="6"]
+[ext_resource type="Texture2D" uid="uid://by31n7vk4psol" path="res://Assets/HatchCube/hatch_swatches.png" id="7"]
+[ext_resource type="Shader" uid="uid://ck1bc5eq72yqs" path="res://Experiments/InkHatch/painted_lit.gdshader" id="8"]
+[ext_resource type="Shader" uid="uid://c73kv5oh8mjsw" path="res://Core/Ink/ink_real.gdshader" id="9"]
+[ext_resource type="PackedScene" path="res://Core/Combat/katana.tscn" id="11"]
+[ext_resource type="Script" uid="uid://bcyx0rxfmidho" path="res://Core/Combat/hands.gd" id="12"]
+[ext_resource type="Script" uid="uid://cw7np06k7xcdo" path="res://Experiments/InkHatch/light_orb.gd" id="13"]
+[ext_resource type="Script" uid="uid://cigjl4xvqlm2i" path="res://Core/Combat/impact_frames.gd" id="14"]
+[ext_resource type="Script" path="res://Core/Combat/tuning_panel.gd" id="15"]
+[ext_resource type="Script" uid="uid://ccw7hsqejtxdc" path="res://Experiments/InkHatch/dummy.gd" id="18"]
+[ext_resource type="Script" path="res://Core/Combat/glow_picker.gd" id="21"]
+
+[sub_resource type="ShaderMaterial" id="Hatch"]
+render_priority = 0
+shader = ExtResource("5")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 2.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(0.95, 0.94, 0.91, 1)
+shader_parameter/lightness = 0.0
+shader_parameter/shadow_lift = 0.12
+
+[sub_resource type="ShaderMaterial" id="Real"]
+render_priority = 0
+shader = ExtResource("9")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/use_painting = false
+shader_parameter/painting_rect = Vector4(0, 0, 1, 1)
+shader_parameter/swatch_index = 0
+shader_parameter/ink_amount = 1.0
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 2.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="As_painted"]
+render_priority = 0
+shader = ExtResource("6")
+shader_parameter/albedo = ExtResource("7")
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(0.95, 0.94, 0.91, 1)
+
+[sub_resource type="ShaderMaterial" id="Painted_lit"]
+render_priority = 0
+shader = ExtResource("8")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/painting = ExtResource("7")
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 2.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(1, 1, 1, 1)
+shader_parameter/shade_start = 0.6
+shader_parameter/shade_depth = 5.0
+shader_parameter/shade_angle = 1.57
+
+[sub_resource type="ShaderMaterial" id="Real_painted"]
+render_priority = 0
+shader = ExtResource("9")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/use_painting = true
+shader_parameter/painting = ExtResource("7")
+shader_parameter/painting_rect = Vector4(0, 0, 1, 1)
+shader_parameter/swatch_index = 0
+shader_parameter/ink_amount = 1.0
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 2.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ambient_light_source = 1
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.15
+reflected_light_source = 1
+
+[sub_resource type="Environment" id="Env_real_day"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.3
+reflected_light_source = 1
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.004
+
+[sub_resource type="Environment" id="Env_real_night"]
+background_mode = 1
+background_color = Color(0.015, 0.015, 0.015, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.8, 0.8, 0.8, 1)
+ambient_light_energy = 0.015
+reflected_light_source = 1
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.012
+volumetric_fog_albedo = Color(0.7, 0.7, 0.7, 1)
+volumetric_fog_length = 48.0
+
+[sub_resource type="ShaderMaterial" id="Hatch_floor"]
+render_priority = 0
+shader = ExtResource("5")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 2.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(0.95, 0.94, 0.91, 1)
+shader_parameter/lightness = 0.35
+shader_parameter/shadow_lift = 0.12
+
+[sub_resource type="PlaneMesh" id="Floor_mesh"]
+size = Vector2(400, 400)
+
+[sub_resource type="ShaderMaterial" id="Real_floor"]
+render_priority = 0
+shader = ExtResource("9")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/use_painting = false
+shader_parameter/painting_rect = Vector4(0, 0, 1, 1)
+shader_parameter/swatch_index = 0
+shader_parameter/ink_amount = 0.3
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 2.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(1, 1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="Floor_shape"]
+size = Vector3(400, 1, 400)
+
+[sub_resource type="BoxShape3D" id="Cube_shape"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="SphereMesh" id="Sphere"]
+radius = 0.8
+height = 1.6
+
+[sub_resource type="TorusMesh" id="Torus"]
+inner_radius = 0.35
+outer_radius = 0.8
+
+[sub_resource type="CylinderMesh" id="Pillar"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 3.0
+
+[sub_resource type="BoxMesh" id="Wall"]
+size = Vector3(6, 2.5, 0.3)
+
+[sub_resource type="ShaderMaterial" id="Hatch_room"]
+render_priority = 0
+shader = ExtResource("5")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 1.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(1, 1, 1, 1)
+shader_parameter/lightness = 0.2
+shader_parameter/shadow_lift = 0.12
+
+[sub_resource type="ShaderMaterial" id="Real_room"]
+render_priority = 0
+shader = ExtResource("9")
+shader_parameter/swatches = ExtResource("7")
+shader_parameter/use_painting = false
+shader_parameter/painting_rect = Vector4(0, 0, 1, 1)
+shader_parameter/swatch_index = 1
+shader_parameter/ink_amount = 1.0
+shader_parameter/swatch_0 = Vector4(0.3906, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_1 = Vector4(0.0537, 0.3906, 0.2148, 0.2148)
+shader_parameter/swatch_2 = Vector4(0.3906, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_3 = Vector4(0.0537, 0.0537, 0.2148, 0.2148)
+shader_parameter/swatch_4 = Vector4(0.3906, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_5 = Vector4(0.0537, 0.7227, 0.2148, 0.2148)
+shader_parameter/swatch_size = 1.0
+shader_parameter/sheet_paper = 0.8
+shader_parameter/ink_color = Color(0.05, 0.05, 0.06, 1)
+shader_parameter/paper_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="Bulb_mat"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="Bulb"]
+material = SubResource("Bulb_mat")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="Lamp_post"]
+top_radius = 0.05
+bottom_radius = 0.08
+height = 3.2
+
+[sub_resource type="BoxShape3D" id="Small_cube_shape"]
+
+[node name="InkHatch" type="Node3D" unique_id=760096458 node_paths=PackedStringArray("props", "as_painted", "painted_lit", "world_environment", "sun", "night_lights", "ink_pass", "spawn")]
+script = ExtResource("2")
+props = NodePath("Props")
+ink_material = SubResource("Hatch")
+real_material = SubResource("Real")
+as_painted = NodePath("AsPainted")
+as_painted_material = SubResource("As_painted")
+painted_lit = NodePath("PaintedLit")
+painted_ink_material = SubResource("Painted_lit")
+painted_real_material = SubResource("Real_painted")
+world_environment = NodePath("WorldEnvironment")
+ink_environment = SubResource("Env")
+real_day_environment = SubResource("Env_real_day")
+real_night_environment = SubResource("Env_real_night")
+sun = NodePath("Sun")
+night_lights = NodePath("NightLights")
+ink_pass = NodePath("InkPass")
+spawn = NodePath("LineupSpawn")
+
+[node name="Sandbox" parent="." unique_id=1859969421 instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.044950724, 0)
+show_floor = false
+use_stage_lighting = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1715434279]
+environment = SubResource("Env")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=870525738]
+transform = Transform3D(0.866025, -0.40558, 0.29236, 0, 0.584958, 0.811064, -0.5, -0.702486, 0.506383, 0, 10, 0)
+shadow_enabled = true
+
+[node name="InkPass" parent="." unique_id=187299759 instance=ExtResource("3")]
+
+[node name="Props" type="Node3D" parent="." unique_id=1940634494]
+
+[node name="Floor" type="StaticBody3D" parent="Props" unique_id=216821162]
+
+[node name="Mesh" type="MeshInstance3D" parent="Props/Floor" unique_id=1811760069]
+material_override = SubResource("Hatch_floor")
+mesh = SubResource("Floor_mesh")
+metadata/real_material = SubResource("Real_floor")
+
+[node name="Collision" type="CollisionShape3D" parent="Props/Floor" unique_id=140859690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("Floor_shape")
+
+[node name="HatchCube" type="StaticBody3D" parent="Props" unique_id=1223305415]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 1, -6)
+
+[node name="Model" parent="Props/HatchCube" unique_id=638548659 instance=ExtResource("4")]
+
+[node name="Collision" type="CollisionShape3D" parent="Props/HatchCube" unique_id=1903903650]
+shape = SubResource("Cube_shape")
+
+[node name="Label" type="Label3D" parent="Props/HatchCube" unique_id=1541955146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.05, 0.05, 0.06, 1)
+text = "Godot Shader Flicker"
+font_size = 48
+outline_size = 0
+
+[node name="Sphere" type="MeshInstance3D" parent="Props" unique_id=381062659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6, 0.8, -8.5)
+mesh = SubResource("Sphere")
+
+[node name="Torus" type="MeshInstance3D" parent="Props" unique_id=1834119725]
+transform = Transform3D(1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 4.5, 0.9, -9.5)
+mesh = SubResource("Torus")
+
+[node name="Pillar" type="MeshInstance3D" parent="Props" unique_id=873379774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.5, -10)
+mesh = SubResource("Pillar")
+
+[node name="Wall" type="MeshInstance3D" parent="Props" unique_id=322680326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.25, -12)
+mesh = SubResource("Wall")
+
+[node name="Room" type="CSGCombiner3D" parent="Props" unique_id=853560199]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -6)
+material_override = SubResource("Hatch_room")
+use_collision = true
+metadata/real_material = SubResource("Real_room")
+
+[node name="Outer" type="CSGBox3D" parent="Props/Room" unique_id=109457355]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+size = Vector3(6.4, 3.4, 6.4)
+
+[node name="Inner" type="CSGBox3D" parent="Props/Room" unique_id=3780256]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+operation = 2
+size = Vector3(6, 3.1, 6)
+
+[node name="Door" type="CSGBox3D" parent="Props/Room" unique_id=830308536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.1, 0)
+operation = 2
+size = Vector3(0.8, 2.2, 1.4)
+
+[node name="Window" type="CSGBox3D" parent="Props/Room" unique_id=1817663577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.7, 3.2)
+operation = 2
+size = Vector3(1.6, 1, 0.8)
+
+[node name="Table" type="CSGBox3D" parent="Props/Room" unique_id=1762765686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0.375, -1.6)
+size = Vector3(1.4, 0.75, 0.9)
+
+[node name="Lamp" type="OmniLight3D" parent="Props/Room" unique_id=1323292335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 2.3, -0.6)
+light_energy = 2.5
+light_volumetric_fog_energy = 1.5
+shadow_enabled = true
+omni_range = 6.0
+omni_attenuation = 2.0
+
+[node name="Bulb" type="MeshInstance3D" parent="Props/Room/Lamp" unique_id=736913025]
+material_override = SubResource("Bulb_mat")
+cast_shadow = 0
+mesh = SubResource("Bulb")
+metadata/keep_material = true
+
+[node name="LampPost" type="MeshInstance3D" parent="Props" unique_id=446877424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 1.6, -3.2)
+mesh = SubResource("Lamp_post")
+
+[node name="BagDummy" type="StaticBody3D" parent="Props" unique_id=1920714837 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -20, 0, 10)
+script = ExtResource("18")
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+
+[node name="Sign" type="Label3D" parent="Props/BagDummy" unique_id=1432453984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "1  PUNCHING BAG
+4 slashes to kill"
+font_size = 36
+outline_size = 10
+
+[node name="OneHitDummy" type="StaticBody3D" parent="Props" unique_id=2070196341 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -15, 0, 10)
+script = ExtResource("18")
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+max_health = 20.0
+
+[node name="Sign" type="Label3D" parent="Props/OneHitDummy" unique_id=413082701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "2  ONE-HIT
+kill impact on any hit"
+font_size = 36
+outline_size = 10
+
+[node name="OpenDummy" type="StaticBody3D" parent="Props" unique_id=1018842685 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -10, 0, 10)
+script = ExtResource("18")
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+always_open = true
+
+[node name="Sign" type="Label3D" parent="Props/OpenDummy" unique_id=1029063912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "3  ALWAYS OPEN
+hold click to execute"
+font_size = 36
+outline_size = 10
+
+[node name="GlassDummy" type="StaticBody3D" parent="Props" unique_id=2125438847 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -5, 0, 10)
+script = ExtResource("18")
+attacks = true
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+tempo = 1.5
+max_posture = 30.0
+
+[node name="Sign" type="Label3D" parent="Props/GlassDummy" unique_id=2071826966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "4  GLASS POSTURE
+one parry breaks it"
+font_size = 36
+outline_size = 10
+
+[node name="SparringDummy" type="StaticBody3D" parent="Props" unique_id=1657484599 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 10)
+script = ExtResource("18")
+attacks = true
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+
+[node name="Sign" type="Label3D" parent="Props/SparringDummy" unique_id=21385750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "5  SPARRING
+single slow strikes"
+font_size = 36
+outline_size = 10
+
+[node name="RelentlessDummy" type="StaticBody3D" parent="Props" unique_id=1550222506 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 5, 0, 10)
+script = ExtResource("18")
+attacks = true
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+tempo = 1.0
+windup_time = 0.45
+combo = 3
+
+[node name="Sign" type="Label3D" parent="Props/RelentlessDummy" unique_id=1627536040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "6  RELENTLESS
+3-hit combos, no rest"
+font_size = 36
+outline_size = 10
+
+[node name="DirectionalDummy" type="StaticBody3D" parent="Props" unique_id=186030471 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 10, 0, 10)
+script = ExtResource("18")
+attacks = true
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+tempo = 1.8
+windup_time = 0.6
+parries_player = true
+
+[node name="Sign" type="Label3D" parent="Props/DirectionalDummy" unique_id=465093695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "7  DIRECTIONAL
+match the side - it parries back"
+font_size = 36
+outline_size = 10
+
+[node name="GauntletDummy" type="StaticBody3D" parent="Props" unique_id=1956311903 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 15, 0, 10)
+script = ExtResource("18")
+attacks = true
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+tempo = 2.5
+windup_time = 0.6
+combo = 5
+followup_windup = 0.75
+blockable = false
+parry_breaks_combo = false
+stun_on_perfect = true
+show_count = true
+posture_per_parry = 20.0
+
+[node name="Sign" type="Label3D" parent="Props/GauntletDummy" unique_id=142220914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "8  GAUNTLET
+parry all 5 to stun"
+font_size = 36
+outline_size = 10
+
+[node name="BossDummy" type="StaticBody3D" parent="Props" unique_id=1802917691 node_paths=PackedStringArray("player", "guard")]
+transform = Transform3D(-2.3, 0, 0, 0, 2.3, 0, 0, 0, -2.3, 23, 0, 12)
+script = ExtResource("18")
+attacks = true
+player = NodePath("../../Sandbox/Player")
+guard = NodePath("../../Hands/Katana")
+reach = 6.0
+tempo = 1.6
+windup_time = 0.8
+knockback = 0.25
+club = true
+hit_force = 2.5
+max_health = 400.0
+execution_damage = 0.35
+red_chance = 0.5
+red_combo = 6
+max_posture = 250.0
+
+[node name="Sign" type="Label3D" parent="Props/BossDummy" unique_id=1370861849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.95, 0.94, 0.91, 1)
+text = "9  BOSS
+RED = parry every strike in order"
+font_size = 36
+outline_size = 10
+
+[node name="AsPainted" type="StaticBody3D" parent="." unique_id=1516688031]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -5.5, 1, -6)
+
+[node name="Model" parent="AsPainted" unique_id=864228297 instance=ExtResource("4")]
+
+[node name="Collision" type="CollisionShape3D" parent="AsPainted" unique_id=101132692]
+shape = SubResource("Cube_shape")
+
+[node name="Label" type="Label3D" parent="AsPainted" unique_id=942143631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.05, 0.05, 0.06, 1)
+text = "Hand Painted "
+font_size = 48
+outline_size = 0
+
+[node name="NightLights" type="Node3D" parent="." unique_id=1191068360]
+
+[node name="StreetLamp" type="OmniLight3D" parent="NightLights" unique_id=1407381321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 3.35, -3.2)
+light_energy = 3.0
+light_volumetric_fog_energy = 1.5
+shadow_enabled = true
+omni_range = 8.0
+omni_attenuation = 2.0
+
+[node name="Bulb" type="MeshInstance3D" parent="NightLights/StreetLamp" unique_id=1593446249]
+material_override = SubResource("Bulb_mat")
+cast_shadow = 0
+mesh = SubResource("Bulb")
+metadata/keep_material = true
+
+[node name="PaintedLit" type="Node3D" parent="." unique_id=278500639]
+
+[node name="Outside" type="StaticBody3D" parent="PaintedLit" unique_id=2137334224]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 5, 1, -5)
+
+[node name="Model" parent="PaintedLit/Outside" unique_id=714686803 instance=ExtResource("4")]
+
+[node name="Collision" type="CollisionShape3D" parent="PaintedLit/Outside" unique_id=1952274687]
+shape = SubResource("Cube_shape")
+
+[node name="Label" type="Label3D" parent="PaintedLit/Outside" unique_id=1873482687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+billboard = 1
+alpha_cut = 1
+modulate = Color(0.05, 0.05, 0.06, 1)
+text = "Hand Painted + Light"
+font_size = 48
+outline_size = 0
+
+[node name="InRoom" type="StaticBody3D" parent="PaintedLit" unique_id=1805816622]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 10, 0.5, -4.6)
+
+[node name="Model" parent="PaintedLit/InRoom" unique_id=960164289 instance=ExtResource("4")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Collision" type="CollisionShape3D" parent="PaintedLit/InRoom" unique_id=1461258300]
+shape = SubResource("Small_cube_shape")
+
+[node name="Hands" type="Node3D" parent="." unique_id=764136121 node_paths=PackedStringArray("player")]
+script = ExtResource("12")
+player = NodePath("../Sandbox/Player")
+
+[node name="Katana" parent="Hands" node_paths=PackedStringArray("player", "impact_frames") instance=ExtResource("11")]
+player = NodePath("../../Sandbox/Player")
+impact_frames = NodePath("../../ImpactFrames")
+
+[node name="LightOrb" type="Node3D" parent="Hands" unique_id=1666833133 node_paths=PackedStringArray("player", "impact_frames")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.26, -0.6)
+script = ExtResource("13")
+player = NodePath("../../Sandbox/Player")
+impact_frames = NodePath("../../ImpactFrames")
+
+[node name="ImpactFrames" type="Node" parent="." unique_id=966426512 node_paths=PackedStringArray("ink_pass", "player")]
+script = ExtResource("14")
+ink_pass = NodePath("../InkPass")
+player = NodePath("../Sandbox/Player")
+
+[node name="TuningPanel" type="CanvasLayer" parent="." node_paths=PackedStringArray("katana", "impact_frames")]
+script = ExtResource("15")
+katana = NodePath("../Hands/Katana")
+impact_frames = NodePath("../ImpactFrames")
+
+[node name="GlowPicker" type="CanvasLayer" parent="." node_paths=PackedStringArray("katana", "tuning_panel")]
+script = ExtResource("21")
+katana = NodePath("../Hands/Katana")
+tuning_panel = NodePath("../TuningPanel")
+
+[node name="LineupSpawn" type="Marker3D" parent="." unique_id=1219623886]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.1, 6)
+
+[node name="LineupLights" type="Node3D" parent="." unique_id=2095256617]
+
+[node name="Lightm20" type="OmniLight3D" parent="LineupLights" unique_id=816207494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, 8)
+light_energy = 2.5
+omni_range = 9.0
+omni_attenuation = 1.2
+
+[node name="Lightm10" type="OmniLight3D" parent="LineupLights" unique_id=1545430024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 4.5, 8)
+light_energy = 2.5
+omni_range = 9.0
+omni_attenuation = 1.2
+
+[node name="Light0" type="OmniLight3D" parent="LineupLights" unique_id=1277563648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 8)
+light_energy = 2.5
+omni_range = 9.0
+omni_attenuation = 1.2
+
+[node name="Light10" type="OmniLight3D" parent="LineupLights" unique_id=1468513997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4.5, 8)
+light_energy = 2.5
+omni_range = 9.0
+omni_attenuation = 1.2
+
+[node name="Light20" type="OmniLight3D" parent="LineupLights" unique_id=1661716424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4.5, 8)
+light_energy = 2.5
+omni_range = 9.0
+omni_attenuation = 1.2
+
+[node name="LightBoss" type="OmniLight3D" parent="LineupLights" unique_id=22146954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 8, 8)
+light_energy = 3.0
+omni_range = 13.0
+omni_attenuation = 1.2

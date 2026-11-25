@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/player/aspect.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Mend"
+power = 2
+color = Color(0.1, 0.55, 0.25, 1)
+says = "A perfect parry closes half a wound
+and steadies your hands and legs."

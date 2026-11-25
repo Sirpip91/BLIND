@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" uid="uid://bossa00vpnxxa" path="res://Core/Ink/ink.gdshader" id="1"]
+
+[sub_resource type="ShaderMaterial" id="Ink_mat"]
+render_priority = 100
+shader = ExtResource("1")
+
+[sub_resource type="QuadMesh" id="Ink_quad"]
+material = SubResource("Ink_mat")
+size = Vector2(2, 2)
+
+[node name="InkPass" type="MeshInstance3D"]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+custom_aabb = AABB(-10000, -10000, -10000, 20000, 20000, 20000)
+ignore_occlusion_culling = true
+mesh = SubResource("Ink_quad")

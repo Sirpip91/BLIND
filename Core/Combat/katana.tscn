@@ -1,0 +1,31 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://c01dk0nfiyp10" path="res://Core/Combat/katana.gd" id="1"]
+[ext_resource type="Script" uid="uid://c33rkarwvrt8t" path="res://Core/Combat/dress_surfaces.gd" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/Sword/katana_one.glb" id="3"]
+[ext_resource type="Texture2D" path="res://Assets/Sword/katana_one_Katana One_BaseColor.png" id="4"]
+[ext_resource type="Texture2D" path="res://Assets/Sword/katana_one_glow.png" id="5"]
+[ext_resource type="Shader" uid="uid://c73kv5oh8mjsw" path="res://Core/Ink/ink_real.gdshader" id="6"]
+[ext_resource type="Shader" uid="uid://cagw3sufrr5ix" path="res://Core/Combat/katana_lava.gdshader" id="7"]
+
+[sub_resource type="ShaderMaterial" id="Glow"]
+render_priority = 127
+shader = ExtResource("7")
+shader_parameter/glow_map = ExtResource("5")
+
+[sub_resource type="ShaderMaterial" id="Painted"]
+next_pass = SubResource("Glow")
+shader = ExtResource("6")
+shader_parameter/use_painting = true
+shader_parameter/painting = ExtResource("4")
+
+[node name="Katana" type="Node3D"]
+transform = Transform3D(0.9553, -0.1597, -0.2487, 0.2955, 0.5162, 0.8039, 0, -0.8415, 0.5403, 0.32, -0.32, -0.55)
+script = ExtResource("1")
+lava = SubResource("Glow")
+
+[node name="Model" parent="." instance=ExtResource("3")]
+script = ExtResource("2")
+surface_materials = Dictionary[String, Material]({
+"Katana One": SubResource("Painted")
+})

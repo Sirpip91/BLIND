@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/encounter.gd" id="1"]
+[ext_resource type="Script" path="res://Experiments/Arena/foe/kind.gd" id="3"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/night_ghost.tres" id="10"]
+
+[resource]
+script = ExtResource("1")
+label = "The Ghost"
+foes = Array[ExtResource("3")]([ExtResource("10")])
+in_view = 2.0
+night = true
+player_health = 4.0

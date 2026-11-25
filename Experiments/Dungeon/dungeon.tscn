@@ -1,0 +1,45 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Core/sandbox.tscn" id="1"]
+[ext_resource type="Script" path="res://Experiments/Dungeon/dungeon_generator.gd" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/DungeonKit/dungeon_kit.glb" id="3"]
+[ext_resource type="Sky" path="res://Assets/Skies/NightSky013/night_sky_013.tres" id="4"]
+[ext_resource type="PackedScene" path="res://Experiments/Dungeon/torch_color_ui.tscn" id="5"]
+
+[sub_resource type="Environment" id="Env_night"]
+background_mode = 2
+background_energy_multiplier = 0.35
+sky = ExtResource("4")
+ambient_light_source = 3
+ambient_light_energy = 0.25
+reflected_light_source = 2
+tonemap_mode = 4
+ssao_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.015
+volumetric_fog_albedo = Color(0.55, 0.6, 0.75, 1)
+
+[sub_resource type="StandardMaterial3D" id="Glass"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.03, 0.04, 0.07, 0.55)
+
+[node name="Dungeon" type="Node3D"]
+
+[node name="Sandbox" parent="." instance=ExtResource("1")]
+show_floor = false
+use_stage_lighting = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_night")
+
+[node name="Generator" type="Node3D" parent="."]
+script = ExtResource("2")
+kit_scene = ExtResource("3")
+seed = 1
+roof_material = SubResource("Glass")
+
+[node name="TorchColorUI" parent="." node_paths=PackedStringArray("generator") instance=ExtResource("5")]
+generator = NodePath("../Generator")

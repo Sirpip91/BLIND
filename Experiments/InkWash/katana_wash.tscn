@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Experiments/InkWash/katana_wash.gd" id="1"]
+[ext_resource type="Script" uid="uid://c33rkarwvrt8t" path="res://Core/Combat/dress_surfaces.gd" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/Sword/katana_one.glb" id="3"]
+[ext_resource type="Texture2D" path="res://Assets/Sword/katana_one_Katana One_BaseColor.png" id="4"]
+[ext_resource type="Shader" path="res://Experiments/InkWash/ink_blade.gdshader" id="5"]
+
+[sub_resource type="ShaderMaterial" id="Ink"]
+shader = ExtResource("5")
+shader_parameter/painting = ExtResource("4")
+
+[node name="KatanaWash" type="Node3D"]
+transform = Transform3D(0.9553, -0.1597, -0.2487, 0.2955, 0.5162, 0.8039, 0, -0.8415, 0.5403, 0.32, -0.32, -0.55)
+script = ExtResource("1")
+ink = SubResource("Ink")
+
+[node name="Model" parent="." instance=ExtResource("3")]
+script = ExtResource("2")
+surface_materials = Dictionary[String, Material]({
+"Katana One": SubResource("Ink")
+})

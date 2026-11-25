@@ -1,0 +1,35 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/foe/kind.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Assets/BaseMale/Superhero_Male_FullBody.gltf" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/kimono_tied.glb" id="3"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/hakama_tied.glb" id="4"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/armour.glb" id="5"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/mask_oni.glb" id="6"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/pattern_leap.tres" id="20"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/pattern_whirl.tres" id="21"]
+
+[resource]
+script = ExtResource("1")
+label = "The Red Master"
+patience = Vector2(0.7, 1.8)
+press_on = 0.4
+slowness = 0.92
+counter_chance = 0.8
+slow_to_recover = 0.28
+reel_back = 0.1
+guard_chance = 0.0
+think_better = 0.0
+wariness_per_cut = 0.0
+reads = true
+health = 8.0
+outfit = 2
+perfect_open = 1.35
+figure = ExtResource("2")
+figure_extras = Array[PackedScene]([ExtResource("3"), ExtResource("4")])
+armour = ExtResource("5")
+mask = ExtResource("6")
+changes = 1
+parries_to_open = 2
+learns = true
+second_patterns = Array[Resource]([ExtResource("20"), ExtResource("21")])

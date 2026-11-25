@@ -1,0 +1,20 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Rally/temper.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Beginner"
+patience = Vector2(2.4, 4.2)
+most_blows = 1
+slowness = 1.25
+guard_chance = 0.25
+parry_chance = 0.0
+counter_chance = 0.15
+punish_chance = 0.1
+think_better = 0.15
+wariness_per_cut = 0.03
+shell_time = 0.0
+react = 0.55
+rethink = 0.8
+quickest = 0.9

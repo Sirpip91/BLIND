@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/lessons/lesson.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Experiments/Arena/lessons/cut.png" id="2"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/dummy.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+title = "Cut"
+says = "Swipe the mouse the way you want to cut,
+and click"
+teaches = 0
+film = ExtResource("2")
+place = Vector3(3.2, 0, 6)
+kind = ExtResource("3")

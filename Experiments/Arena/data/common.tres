@@ -1,0 +1,26 @@
+[gd_resource type="Resource" format=3 uid="uid://e5wjwiep7c0v"]
+
+[ext_resource type="Script" uid="uid://5x78nh83yx1d" path="res://Experiments/Arena/foe/kind.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Assets/BaseMale/Superhero_Male_FullBody.gltf" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/kimono.glb" id="3"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/hakama.glb" id="4"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/armour.glb" id="5"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/mask_menpo.glb" id="6"]
+
+[resource]
+script = ExtResource("1")
+label = "Ronin"
+patience = Vector2(0.3, 1.0)
+most_blows = 2
+slowness = 1.05
+counter_chance = 0.5
+punish_chance = 0.5
+slow_to_recover = 0.35
+springs_back = false
+hat = true
+press_on = 0.45
+guard_chance = 0.4
+figure = ExtResource("2")
+figure_extras = Array[PackedScene]([ExtResource("3"), ExtResource("4")])
+armour = ExtResource("5")
+mask = ExtResource("6")

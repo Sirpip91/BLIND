@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/player/aspect.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Sunder"
+power = 1
+color = Color(0.9, 0.06, 0.05, 1)
+says = "When the blade is full and glowing, one cut goes
+through any guard and any armour. It empties the blade."

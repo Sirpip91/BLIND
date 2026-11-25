@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/lessons/lesson.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Experiments/Arena/lessons/draw.png" id="2"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/dummy.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+title = "Draw a cut"
+says = "Hold left, draw the line,
+and let go"
+teaches = 1
+film = ExtResource("2")
+place = Vector3(-3.8, 0, 1.6)
+kind = ExtResource("3")

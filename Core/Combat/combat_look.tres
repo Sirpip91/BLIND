@@ -1,0 +1,63 @@
+[gd_resource type="Resource" format=3 uid="uid://ckixnubfj7xt1"]
+
+[ext_resource type="Script" uid="uid://bqtt84lmkeysr" path="res://Core/Combat/combat_look.gd" id="1"]
+[ext_resource type="Script" uid="uid://dimq5n3xotb7g" path="res://Core/Combat/moment_look.gd" id="2"]
+
+[sub_resource type="Resource" id="block"]
+script = ExtResource("2")
+heat = 0.5
+burst = 0.2
+shake = 0.035
+
+[sub_resource type="Resource" id="deflected"]
+script = ExtResource("2")
+heat = 0.6
+burst = 0.35
+shake = 0.05
+
+[sub_resource type="Resource" id="execute"]
+script = ExtResource("2")
+heat = 1.0
+burst = 1.4
+impact = 1.5
+heavy = true
+
+[sub_resource type="Resource" id="flourish"]
+script = ExtResource("2")
+heat = 0.8
+
+[sub_resource type="Resource" id="hit"]
+script = ExtResource("2")
+heat = 1.0
+burst = 0.7
+impact = 0.6
+
+[sub_resource type="Resource" id="kill"]
+script = ExtResource("2")
+heat = 1.0
+burst = 0.7
+impact = 1.0
+heavy = true
+
+[sub_resource type="Resource" id="parry"]
+script = ExtResource("2")
+heat = 1.0
+burst = 1.0
+impact = 1.0
+heavy = true
+
+[sub_resource type="Resource" id="slash"]
+script = ExtResource("2")
+heat = 0.7
+shake = 0.006
+
+[resource]
+script = ExtResource("1")
+slash = SubResource("slash")
+flourish = SubResource("flourish")
+hit = SubResource("hit")
+kill = SubResource("kill")
+parry = SubResource("parry")
+block = SubResource("block")
+deflected = SubResource("deflected")
+execute = SubResource("execute")

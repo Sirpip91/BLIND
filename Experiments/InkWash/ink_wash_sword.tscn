@@ -1,0 +1,71 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://b7robhe01wshq" path="res://Core/sandbox.tscn" id="1"]
+[ext_resource type="Script" path="res://Experiments/InkWash/grove.gd" id="2"]
+[ext_resource type="Shader" path="res://Experiments/InkWash/wash_sword.gdshader" id="3"]
+[ext_resource type="PackedScene" path="res://Core/Ink/ink_pass.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://Core/Combat/katana.tscn" id="5"]
+[ext_resource type="Script" path="res://Core/Combat/hands.gd" id="6"]
+[ext_resource type="PackedScene" path="res://Experiments/InkWash/katana_wash.tscn" id="7"]
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.45
+reflected_light_source = 1
+
+[sub_resource type="ShaderMaterial" id="Wash_mat"]
+render_priority = 100
+shader = ExtResource("3")
+
+[sub_resource type="QuadMesh" id="Wash_quad"]
+material = SubResource("Wash_mat")
+size = Vector2(2, 2)
+
+[sub_resource type="BoxShape3D" id="Floor_shape"]
+size = Vector3(160, 1, 160)
+
+[node name="InkWashSword" type="Node3D" node_paths=PackedStringArray("wash", "ink")]
+script = ExtResource("2")
+wash = NodePath("WashPass")
+ink = NodePath("InkPass")
+
+[node name="Sandbox" parent="." instance=ExtResource("1")]
+show_floor = false
+use_stage_lighting = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.351840, 0.453024, 0, 0.789776, 0.613395, -0.573576, -0.502464, 0.646964, 0, 10, 0)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("Floor_shape")
+
+[node name="WashPass" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+custom_aabb = AABB(-10000, -10000, -10000, 20000, 20000, 20000)
+ignore_occlusion_culling = true
+mesh = SubResource("Wash_quad")
+
+[node name="InkPass" parent="." instance=ExtResource("4")]
+visible = false
+
+[node name="Hands" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("6")
+player = NodePath("../Sandbox/Player")
+
+[node name="KatanaWash" parent="Hands" node_paths=PackedStringArray("player") instance=ExtResource("7")]
+player = NodePath("../../Sandbox/Player")
+
+[node name="Katana" parent="Hands" node_paths=PackedStringArray("player") instance=ExtResource("5")]
+player = NodePath("../../Sandbox/Player")

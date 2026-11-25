@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/lessons/lesson.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Experiments/Arena/lessons/guard.png" id="2"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/spar.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+title = "Guard"
+says = "Hold right, and swipe to the side
+the blow is coming from"
+teaches = 2
+film = ExtResource("2")
+place = Vector3(3.8, 0, 1.6)
+kind = ExtResource("3")
+throws = true

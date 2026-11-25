@@ -1,0 +1,15 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/grounds/hour.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Night"
+paper = Color(0.43, 0.47, 0.56, 1)
+ink = Color(0.018, 0.02, 0.032, 1)
+sky = 0.1
+sun_energy = 0.42
+ambient = 0.3
+mist_limit = 0.72
+moon = true
+writing = Color(0.86, 0.88, 0.93, 1)

@@ -1,0 +1,39 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/foe/kind.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Assets/BaseMale/Superhero_Male_FullBody.gltf" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/kimono_tied.glb" id="3"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/hakama.glb" id="4"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/armour.glb" id="5"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/mask_noh.glb" id="6"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/hair.glb" id="7"]
+
+[resource]
+script = ExtResource("1")
+label = "The Student"
+patience = Vector2(0.6, 1.5)
+press_on = 0.25
+counter_chance = 0.7
+punish_chance = 0.7
+slow_to_recover = 0.35
+reel_back = 0.3
+guard_chance = 0.0
+think_better = 0.0
+wariness_per_cut = 0.0
+reads = true
+stops = 0.9
+watches = false
+remembers = 3
+knows_feints = true
+iron = false
+health = 4.0
+outfit = 1
+lacquer = Color(0.04, 0.07, 0.2, 1)
+perfect_open = 1.5
+figure = ExtResource("2")
+figure_extras = Array[PackedScene]([ExtResource("3"), ExtResource("4"), ExtResource("7")])
+armour = ExtResource("5")
+mask = ExtResource("6")
+learns = true
+slowness = 0.94
+fierce = true

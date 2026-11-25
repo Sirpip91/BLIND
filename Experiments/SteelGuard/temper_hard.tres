@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/SteelGuard/temper.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Hard"
+read_delay = 0.08
+ward_speed = 3.2
+ward_turn = 14.0
+rush_chance = 0.6

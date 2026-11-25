@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/player/aspect.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+label = "Stillness"
+power = 3
+color = Color(0.5, 0.15, 0.75, 1)
+says = "Step aside at the last moment and they are left
+standing in their own blow, open, for a breath."

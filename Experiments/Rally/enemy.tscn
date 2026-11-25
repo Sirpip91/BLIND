@@ -1,0 +1,240 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Experiments/Rally/enemy.gd" id="1"]
+[ext_resource type="Script" path="res://Experiments/Rally/arm.gd" id="2"]
+[ext_resource type="Script" path="res://Experiments/Rally/vitals.gd" id="3"]
+[ext_resource type="Script" path="res://Experiments/Rally/brain.gd" id="4"]
+[ext_resource type="Script" path="res://Experiments/Rally/body.gd" id="5"]
+[ext_resource type="Script" path="res://Core/Wash/brush_blade.gd" id="6"]
+[ext_resource type="Shader" path="res://Core/Wash/ink_blade.gdshader" id="7"]
+[ext_resource type="PackedScene" path="res://Assets/Sword/katana_one.glb" id="8"]
+[ext_resource type="Texture2D" path="res://Assets/Sword/katana_one_Katana One_BaseColor.png" id="9"]
+[ext_resource type="Script" uid="uid://c33rkarwvrt8t" path="res://Core/Combat/dress_surfaces.gd" id="10"]
+[ext_resource type="Script" path="res://Experiments/Rally/pattern.gd" id="11"]
+[ext_resource type="Script" path="res://Experiments/Rally/strike.gd" id="12"]
+
+[sub_resource type="CapsuleShape3D" id="Shape"]
+radius = 0.32
+height = 1.8
+
+[sub_resource type="ShaderMaterial" id="Ink"]
+shader = ExtResource("7")
+shader_parameter/painting = ExtResource("9")
+shader_parameter/border = 1.1
+shader_parameter/border_wander = 0.2
+shader_parameter/dryness = 0.0
+shader_parameter/wet_grey = 0.12
+shader_parameter/held = true
+
+[sub_resource type="Resource" id="Right_cut"]
+script = ExtResource("12")
+direction = Vector2(-0.75, -0.66)
+windup = 0.58
+release = 0.24
+recover = 0.5
+
+[sub_resource type="Resource" id="Left_cut"]
+script = ExtResource("12")
+direction = Vector2(0.75, -0.66)
+windup = 0.58
+release = 0.24
+recover = 0.5
+
+[sub_resource type="Resource" id="Right_quick"]
+script = ExtResource("12")
+direction = Vector2(-0.75, -0.66)
+windup = 0.36
+release = 0.24
+recover = 0.5
+
+[sub_resource type="Resource" id="Left_quick"]
+script = ExtResource("12")
+direction = Vector2(0.75, -0.66)
+windup = 0.36
+release = 0.24
+recover = 0.5
+
+[sub_resource type="Resource" id="Right_rise"]
+script = ExtResource("12")
+direction = Vector2(-0.8, 0.6)
+windup = 0.4
+release = 0.24
+recover = 0.5
+
+[sub_resource type="Resource" id="Left_rise"]
+script = ExtResource("12")
+direction = Vector2(0.8, 0.6)
+windup = 0.4
+release = 0.24
+recover = 0.5
+
+[sub_resource type="Resource" id="Right_sweep"]
+script = ExtResource("12")
+direction = Vector2(-1, 0)
+windup = 0.56
+release = 0.24
+recover = 0.5
+reach = 2.65
+
+[sub_resource type="Resource" id="Left_sweep"]
+script = ExtResource("12")
+direction = Vector2(1, 0)
+windup = 0.44
+release = 0.24
+recover = 0.5
+reach = 2.65
+
+[sub_resource type="Resource" id="Chop"]
+script = ExtResource("12")
+direction = Vector2(0, -1)
+windup = 0.5
+release = 0.24
+recover = 0.5
+lunge = 2.8
+
+[sub_resource type="Resource" id="Held_chop"]
+script = ExtResource("12")
+direction = Vector2(0, -1)
+windup = 0.5
+release = 0.24
+recover = 0.5
+delay = 0.4
+lunge = 2.8
+
+[sub_resource type="Resource" id="Heavy_chop"]
+script = ExtResource("12")
+direction = Vector2(-0.3, -0.95)
+windup = 0.8
+release = 0.24
+delay = 0.25
+recover = 0.95
+lunge = 3.4
+heavy = true
+
+[sub_resource type="Resource" id="Thrust"]
+script = ExtResource("12")
+direction = Vector2(0, 0)
+windup = 0.5
+release = 0.24
+recover = 0.5
+reach = 2.75
+lunge = 3.4
+
+[sub_resource type="Resource" id="Feint_right"]
+script = ExtResource("12")
+direction = Vector2(-0.75, -0.66)
+windup = 0.5
+release = 0.24
+recover = 0.5
+feint = true
+
+[sub_resource type="Resource" id="Feint_chop"]
+script = ExtResource("12")
+direction = Vector2(0, -1)
+windup = 0.5
+release = 0.24
+recover = 0.5
+feint = true
+
+[sub_resource type="Resource" id="P_two"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Right_cut"), SubResource("Left_quick")])
+weight = 0.8
+
+[sub_resource type="Resource" id="P_three"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Left_cut"), SubResource("Right_quick"), SubResource("Chop")])
+weight = 1.3
+
+[sub_resource type="Resource" id="P_rising"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Right_cut"), SubResource("Left_rise")])
+weight = 1.2
+
+[sub_resource type="Resource" id="P_sweeps"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Right_sweep"), SubResource("Left_sweep")])
+weight = 1.1
+
+[sub_resource type="Resource" id="P_flurry"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Right_cut"), SubResource("Left_quick"), SubResource("Right_rise"), SubResource("Held_chop")])
+weight = 1.1
+
+[sub_resource type="Resource" id="P_held"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Held_chop")])
+weight = 0.9
+
+[sub_resource type="Resource" id="P_heavy"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Left_quick"), SubResource("Heavy_chop")])
+weight = 0.8
+
+[sub_resource type="Resource" id="P_thrusts"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Thrust")])
+weight = 0.8
+
+[sub_resource type="Resource" id="P_feint"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Feint_right"), SubResource("Left_quick"), SubResource("Chop")])
+weight = 1.3
+desperate_only = true
+
+[sub_resource type="Resource" id="P_feint_high"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Feint_chop"), SubResource("Right_sweep"), SubResource("Left_quick")])
+weight = 1.1
+desperate_only = true
+
+[sub_resource type="Resource" id="P_storm"]
+script = ExtResource("11")
+strikes = Array[ExtResource("12")]([SubResource("Right_sweep"), SubResource("Left_sweep"), SubResource("Right_quick"), SubResource("Chop")])
+weight = 1
+desperate_only = true
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("Shape")
+
+[node name="Vitals" type="Node" parent="."]
+script = ExtResource("3")
+max_health = 5.0
+max_pressure = 100.0
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("4")
+patterns = Array[ExtResource("11")]([SubResource("P_two"), SubResource("P_three"), SubResource("P_rising"), SubResource("P_sweeps"), SubResource("P_flurry"), SubResource("P_held"), SubResource("P_heavy"), SubResource("P_thrusts"), SubResource("P_feint"), SubResource("P_feint_high"), SubResource("P_storm")])
+
+[node name="Body" type="Node3D" parent="."]
+script = ExtResource("5")
+
+[node name="Shoulders" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48, 0.1)
+
+[node name="Arm" type="Node3D" parent="Shoulders"]
+unique_name_in_owner = true
+script = ExtResource("2")
+parry_window = 0.0
+shown = true
+
+[node name="Model" parent="Shoulders/Arm" instance=ExtResource("8")]
+transform = Transform3D(1.9, 0, 0, 0, 1.4, 0, 0, 0, 7, 0.012, 0, 0)
+script = ExtResource("10")
+surface_materials = Dictionary[String, Material]({
+"Katana One": SubResource("Ink")
+})
+
+[node name="Brush" type="Node" parent="." node_paths=PackedStringArray("blade")]
+script = ExtResource("6")
+blade = NodePath("../Shoulders/Arm")
+ink = SubResource("Ink")
+tip = Vector3(-0.003, 1.05, 0)
+stroke_width = 0.16
+stroke_dry_time = 0.35
+stroke_tint = 0.5

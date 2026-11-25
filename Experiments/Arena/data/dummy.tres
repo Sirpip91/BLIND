@@ -1,0 +1,25 @@
+[gd_resource type="Resource" format=3 uid="uid://df4w63ewncg6w"]
+
+[ext_resource type="Script" uid="uid://5x78nh83yx1d" path="res://Experiments/Arena/foe/kind.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Assets/BaseMale/Superhero_Male_FullBody.gltf" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/kimono.glb" id="3"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/hakama.glb" id="4"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/armour.glb" id="5"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/mask_noh.glb" id="6"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/hair.glb" id="7"]
+
+[resource]
+script = ExtResource("1")
+label = "Dummy"
+attacks = false
+counter_chance = 0.0
+punish_chance = 0.0
+guard_chance = 0.0
+think_better = 0.0
+wariness_per_cut = 0.0
+springs_back = false
+figure = ExtResource("2")
+figure_extras = Array[PackedScene]([ExtResource("3"), ExtResource("4"), ExtResource("7")])
+armour = ExtResource("5")
+mask = ExtResource("6")
+straw = true

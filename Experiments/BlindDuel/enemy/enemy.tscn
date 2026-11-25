@@ -1,0 +1,167 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Experiments/BlindDuel/enemy/enemy.gd" id="1"]
+[ext_resource type="Script" path="res://Experiments/BlindDuel/enemy/vitals.gd" id="2"]
+[ext_resource type="Script" path="res://Experiments/BlindDuel/enemy/brain.gd" id="3"]
+[ext_resource type="Script" path="res://Experiments/BlindDuel/enemy/weapon.gd" id="4"]
+[ext_resource type="Script" path="res://Experiments/BlindDuel/enemy/footsteps.gd" id="5"]
+[ext_resource type="Script" path="res://Experiments/BlindDuel/enemy/veil.gd" id="6"]
+[ext_resource type="Script" path="res://Experiments/BlindDuel/enemy/attack.gd" id="7"]
+[ext_resource type="Shader" path="res://Experiments/BlindDuel/enemy/red_blade.gdshader" id="8"]
+[ext_resource type="Shader" path="res://Experiments/BlindDuel/enemy/aura.gdshader" id="9"]
+[ext_resource type="PackedScene" path="res://Assets/Sword/katana_one.glb" id="10"]
+[ext_resource type="Texture2D" path="res://Assets/Sword/katana_one_Katana One_BaseColor.png" id="11"]
+[ext_resource type="Script" path="res://Core/Combat/dress_surfaces.gd" id="12"]
+[ext_resource type="Texture2D" path="res://Assets/Sword/katana_one_glow.png" id="13"]
+
+[sub_resource type="ShaderMaterial" id="Red"]
+resource_local_to_scene = true
+render_priority = 110
+shader = ExtResource("8")
+shader_parameter/painting = ExtResource("11")
+shader_parameter/glow_map = ExtResource("13")
+
+[sub_resource type="StandardMaterial3D" id="Black_sword"]
+resource_local_to_scene = true
+next_pass = SubResource("Red")
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="Aura"]
+resource_local_to_scene = true
+render_priority = 109
+shader = ExtResource("9")
+
+[sub_resource type="StandardMaterial3D" id="Black"]
+resource_local_to_scene = true
+next_pass = SubResource("Aura")
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="Robe"]
+top_radius = 0.17
+bottom_radius = 0.36
+height = 1.3
+
+[sub_resource type="SphereMesh" id="Head"]
+radius = 0.13
+height = 0.28
+
+[sub_resource type="CylinderMesh" id="Hat"]
+top_radius = 0.01
+bottom_radius = 0.36
+height = 0.2
+
+[sub_resource type="CapsuleMesh" id="Arm"]
+radius = 0.07
+height = 0.6
+
+[sub_resource type="CapsuleShape3D" id="Shape"]
+radius = 0.32
+height = 1.8
+
+[sub_resource type="Resource" id="overhead"]
+script = ExtResource("7")
+title = "overhead"
+windup = 0.85
+recover = 0.7
+lunge = 0.7
+chance_to_chain = 0.2
+gather_at = Vector3(0.12, 1.75, 0.1)
+gather_blade = Vector3(0.1, 0.9, 0.6)
+strike_at = Vector3(0.05, 1.05, -0.65)
+strike_blade = Vector3(0, -0.25, -1)
+
+[sub_resource type="Resource" id="from_right"]
+script = ExtResource("7")
+title = "from its right"
+windup = 0.65
+gather_at = Vector3(0.5, 1.35, 0)
+gather_blade = Vector3(0.9, 0.5, 0.3)
+strike_at = Vector3(-0.15, 1.1, -0.6)
+strike_blade = Vector3(-0.35, 0, -1)
+
+[sub_resource type="Resource" id="from_left"]
+script = ExtResource("7")
+title = "from its left"
+windup = 0.65
+gather_at = Vector3(-0.35, 1.35, -0.1)
+gather_blade = Vector3(-0.9, 0.5, 0.3)
+strike_at = Vector3(0.2, 1.1, -0.6)
+strike_blade = Vector3(0.35, 0, -1)
+
+[sub_resource type="Resource" id="thrust"]
+script = ExtResource("7")
+title = "thrust"
+windup = 0.95
+strike = 0.08
+recover = 0.8
+reach = 3.0
+lunge = 1.0
+blockable = false
+chance_to_chain = 0.0
+gather_at = Vector3(0.3, 1.2, 0.25)
+gather_blade = Vector3(-0.1, 0.05, -1)
+strike_at = Vector3(0.05, 1.25, -0.85)
+strike_blade = Vector3(0, 0.02, -1)
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("Shape")
+
+[node name="Vitals" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="Brain" type="Node" parent="."]
+script = ExtResource("3")
+attacks = Array[ExtResource("7")]([SubResource("overhead"), SubResource("from_right"), SubResource("from_left"), SubResource("thrust")])
+
+[node name="Footsteps" type="Node" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("5")
+body = NodePath("..")
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="Robe" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+material_override = SubResource("Black")
+mesh = SubResource("Robe")
+
+[node name="Head" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = SubResource("Black")
+mesh = SubResource("Head")
+
+[node name="Hat" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66, 0)
+material_override = SubResource("Black")
+mesh = SubResource("Hat")
+
+[node name="ArmRight" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 0.57, -0.82, 0, 0.82, 0.57, 0.22, 1.1, -0.15)
+material_override = SubResource("Black")
+mesh = SubResource("Arm")
+
+[node name="ArmLeft" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 0.57, -0.82, 0, 0.82, 0.57, -0.22, 1.1, -0.15)
+material_override = SubResource("Black")
+mesh = SubResource("Arm")
+
+[node name="Weapon" type="Node3D" parent="."]
+script = ExtResource("4")
+
+[node name="Model" parent="Weapon" instance=ExtResource("10")]
+script = ExtResource("12")
+surface_materials = Dictionary[String, Material]({
+"Katana One": SubResource("Black_sword")
+})
+
+[node name="Veil" type="Node" parent="." node_paths=PackedStringArray("sword", "body")]
+script = ExtResource("6")
+sword = NodePath("../Weapon")
+body = NodePath("../Body")

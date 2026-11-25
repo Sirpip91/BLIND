@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/lessons/lesson.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Experiments/Arena/lessons/flick.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+title = "Clean the blade"
+says = "Scroll down to flick the blood off.
+Scroll up to thrust"
+teaches = 5
+film = ExtResource("2")
+place = Vector3(-2.6, 0, -6.6)

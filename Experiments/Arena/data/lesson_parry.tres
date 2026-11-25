@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/lessons/lesson.gd" id="1"]
+[ext_resource type="Texture2D" path="res://Experiments/Arena/lessons/parry.png" id="2"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/spar.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+title = "Perfect parry"
+says = "Guard at the very last moment.
+He is thrown open: cut him"
+teaches = 3
+film = ExtResource("2")
+place = Vector3(-3.8, 0, -2.8)
+kind = ExtResource("3")
+throws = true

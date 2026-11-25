@@ -1,0 +1,32 @@
+[gd_resource type="Resource" format=3 uid="uid://dbqt3wj5fmhk"]
+
+[ext_resource type="Script" uid="uid://5x78nh83yx1d" path="res://Experiments/Arena/foe/kind.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Assets/BaseMale/Superhero_Male_FullBody.gltf" id="2"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/kimono_tied.glb" id="3"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/hakama.glb" id="4"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/armour.glb" id="5"]
+[ext_resource type="PackedScene" path="res://Assets/Clothes/mask_menpo.glb" id="6"]
+
+[resource]
+script = ExtResource("1")
+label = "Armoured ronin"
+patience = Vector2(0.25, 0.8)
+most_blows = 2
+slowness = 0.94
+counter_chance = 0.7
+punish_chance = 0.7
+slow_to_recover = 0.2
+springs_back = false
+hat = false
+press_on = 0.5
+guard_chance = 0.55
+figure = ExtResource("2")
+figure_extras = Array[PackedScene]([ExtResource("3"), ExtResource("4")])
+armour = ExtResource("5")
+mask = ExtResource("6")
+fierce = true
+learns = true
+parry_chance = 0.2
+health = 4.0
+lacquer = Color(0.07, 0.07, 0.08, 1)
+outfit = 1

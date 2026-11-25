@@ -1,0 +1,164 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://b7robhe01wshq" path="res://Core/sandbox.tscn" id="1"]
+[ext_resource type="Script" path="res://Experiments/Duel/duel.gd" id="2"]
+[ext_resource type="Script" path="res://Experiments/Duel/duelist.gd" id="3"]
+[ext_resource type="Script" path="res://Experiments/Duel/swordsman.gd" id="4"]
+[ext_resource type="Script" path="res://Experiments/Duel/arm.gd" id="5"]
+[ext_resource type="Script" path="res://Experiments/Duel/vitals.gd" id="6"]
+[ext_resource type="Script" path="res://Core/Wash/brush_blade.gd" id="7"]
+[ext_resource type="Shader" path="res://Core/Wash/ink_blade.gdshader" id="8"]
+[ext_resource type="PackedScene" path="res://Assets/Sword/katana_one.glb" id="9"]
+[ext_resource type="Texture2D" path="res://Assets/Sword/katana_one_Katana One_BaseColor.png" id="10"]
+[ext_resource type="Script" uid="uid://c33rkarwvrt8t" path="res://Core/Combat/dress_surfaces.gd" id="11"]
+[ext_resource type="Script" path="res://Experiments/Duel/strike.gd" id="12"]
+[ext_resource type="PackedScene" path="res://Experiments/Duel/enemy.tscn" id="13"]
+[ext_resource type="Script" path="res://Experiments/Duel/grounds.gd" id="14"]
+[ext_resource type="PackedScene" path="res://Core/Wash/wash_pass.tscn" id="15"]
+[ext_resource type="Script" uid="uid://cigjl4xvqlm2i" path="res://Core/Combat/impact_frames.gd" id="16"]
+[ext_resource type="Script" path="res://Experiments/Duel/feel.gd" id="17"]
+[ext_resource type="Script" path="res://Experiments/Duel/compass.gd" id="19"]
+[ext_resource type="Shader" path="res://Experiments/Duel/hurt.gdshader" id="20"]
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.45
+reflected_light_source = 1
+
+[sub_resource type="BoxShape3D" id="Floor_shape"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="ShaderMaterial" id="Ink"]
+shader = ExtResource("8")
+shader_parameter/painting = ExtResource("10")
+shader_parameter/held = true
+
+[sub_resource type="Resource" id="Cut"]
+script = ExtResource("12")
+windup = 0.3
+release = 0.18
+recover = 0.36
+reach = 2.35
+damage = 14.0
+
+[sub_resource type="Resource" id="Thrust"]
+script = ExtResource("12")
+direction = Vector2(0, 0)
+windup = 0.32
+release = 0.18
+recover = 0.42
+reach = 2.8
+damage = 12.0
+lunge = 3.0
+
+[sub_resource type="ShaderMaterial" id="Hurt"]
+shader = ExtResource("20")
+
+[node name="Duel" type="Node3D" node_paths=PackedStringArray("player", "enemy", "swordsman", "arm", "feel", "hint")]
+script = ExtResource("2")
+player = NodePath("Sandbox/Player")
+enemy = NodePath("Enemy")
+swordsman = NodePath("Swordsman")
+arm = NodePath("Arm")
+feel = NodePath("Feel")
+hint = NodePath("HUD/Hint")
+
+[node name="Sandbox" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.2)
+show_floor = false
+use_stage_lighting = false
+
+[node name="Player" parent="Sandbox" index="1"]
+script = ExtResource("3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.351840, 0.453024, 0, 0.789776, 0.613395, -0.573576, -0.502464, 0.646964, 0, 10, 0)
+light_energy = 1.1
+shadow_enabled = true
+
+[node name="Grounds" type="Node3D" parent="."]
+script = ExtResource("14")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("Floor_shape")
+
+[node name="WashPass" parent="." instance=ExtResource("15")]
+
+[node name="Arm" type="Node3D" parent="."]
+script = ExtResource("5")
+
+[node name="Model" parent="Arm" instance=ExtResource("9")]
+script = ExtResource("11")
+surface_materials = Dictionary[String, Material]({
+"Katana One": SubResource("Ink")
+})
+
+[node name="Brush" type="Node" parent="Arm" node_paths=PackedStringArray("blade")]
+script = ExtResource("7")
+blade = NodePath("..")
+ink = SubResource("Ink")
+
+[node name="Vitals" type="Node" parent="."]
+script = ExtResource("6")
+
+[node name="Swordsman" type="Node" parent="." node_paths=PackedStringArray("player", "arm", "vitals", "brush")]
+script = ExtResource("4")
+player = NodePath("../Sandbox/Player")
+arm = NodePath("../Arm")
+vitals = NodePath("../Vitals")
+brush = NodePath("../Arm/Brush")
+cut = SubResource("Cut")
+thrust = SubResource("Thrust")
+
+[node name="Enemy" parent="." instance=ExtResource("13")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2)
+
+[node name="ImpactFrames" type="Node" parent="." node_paths=PackedStringArray("ink_pass", "player")]
+script = ExtResource("16")
+ink_pass = NodePath("../WashPass")
+player = NodePath("../Sandbox/Player")
+
+[node name="Feel" type="Node" parent="." node_paths=PackedStringArray("player", "impact_frames", "overlay")]
+script = ExtResource("17")
+player = NodePath("../Sandbox/Player")
+impact_frames = NodePath("../ImpactFrames")
+overlay = NodePath("../HUD/Hurt")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Hurt" type="ColorRect" parent="HUD"]
+material = SubResource("Hurt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Compass" type="Control" parent="HUD" node_paths=PackedStringArray("player", "arm", "swordsman")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("19")
+player = NodePath("../../Sandbox/Player")
+arm = NodePath("../../Arm")
+swordsman = NodePath("../../Swordsman")
+
+[node name="Hint" type="Label" parent="HUD"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -84.0
+offset_bottom = -30.0
+theme_override_colors/font_color = Color(0.05, 0.05, 0.06, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1

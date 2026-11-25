@@ -1,0 +1,17 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://Experiments/Arena/encounter.gd" id="1"]
+[ext_resource type="Script" path="res://Experiments/Arena/foe/kind.gd" id="3"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/night_ronin.tres" id="10"]
+[ext_resource type="Resource" path="res://Experiments/Arena/data/night_watcher.tres" id="11"]
+
+[resource]
+script = ExtResource("1")
+label = "The Watcher and two ronin"
+foes = Array[ExtResource("3")]([ExtResource("10"), ExtResource("11"), ExtResource("10")])
+at_once = 2
+in_view = 2.0
+locked = false
+night = true
+player_health = 4.0
+spacing = 0.3
