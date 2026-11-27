@@ -10,6 +10,8 @@ const SPLAT = preload("res://Experiments/Arena/feel/blood.gdshader")
 ## The player's blade, as it's drawn.
 @export var ink: ShaderMaterial
 @export var red := Color(0.62, 0.008, 0.014)
+## Off in the options, and everyone bleeds ink.
+static var gore := true
 ## What there is in a man of straw.
 @export var black := Color(0.014, 0.014, 0.018)
 @export var gravity := 9.5

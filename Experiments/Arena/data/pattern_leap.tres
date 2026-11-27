@@ -1,7 +1,7 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" format=3 uid="uid://carbmfokhn2n6"]
 
-[ext_resource type="Script" path="res://Experiments/Arena/fighter/pattern.gd" id="1"]
-[ext_resource type="Script" path="res://Experiments/Arena/fighter/strike.gd" id="2"]
+[ext_resource type="Script" uid="uid://bcjuiwpu7r2lk" path="res://Experiments/Arena/fighter/pattern.gd" id="1"]
+[ext_resource type="Script" uid="uid://lcjbnrdgvxvp" path="res://Experiments/Arena/fighter/strike.gd" id="2"]
 
 [sub_resource type="Resource" id="A"]
 script = ExtResource("2")
@@ -9,8 +9,8 @@ direction = Vector2(0, -1)
 windup = 0.6
 release = 0.24
 recover = 0.45
-lunge = 6.5
 reach = 2.5
+lunge = 6.5
 
 [sub_resource type="Resource" id="B"]
 script = ExtResource("2")

@@ -73,7 +73,7 @@ swipe). Wheel up: thrust. Wheel down: flick the blood off. Space or Shift:
 step. Q: lock on. Locked with several enemies, throw the mouse far to one side
 for the next. Middle: next. E: look into the mask. Esc: pause.
 
-Testing keys: `]` `[` next and previous level, K kill everyone and open the
+Testing keys (only with Developer mode on in Options): `]` `[` next and previous level, K kill everyone and open the
 gate, G next colour (Shift+G none), V sword paint styles, 1-9 and 0 and
 Shift+1-6 jump to fights, R again, N day/night, C plain sword colour, H list.
 

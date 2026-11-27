@@ -4,6 +4,7 @@ extends Node
 ## strokes. V goes through the ways of laying them on.
 
 const Aspect = preload("res://Experiments/Arena/player/aspect.gd")
+const Menu = preload("res://Experiments/Arena/menu/main_menu.gd")
 
 const STYLES: Array[String] = ["Bled", "Marbled", "Painted over", "Loaded brush", "Stirred", "Splashed", "Tempered"]
 
@@ -83,7 +84,7 @@ func _process(delta: float):
 
 
 func _unhandled_key_input(event):
-	if event.pressed and not event.echo and event.physical_keycode == KEY_V:
+	if Menu.developer and event.pressed and not event.echo and event.physical_keycode == KEY_V:
 		style = (style + 1) % STYLES.size()
 		ink.set_shader_parameter("style", style)
 		restyled.emit(STYLES[style])

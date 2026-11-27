@@ -19,6 +19,8 @@ const Strike = preload("res://Experiments/Arena/fighter/strike.gd")
 const Region = preload("res://Experiments/Arena/cutting/region.gd")
 const Part = preload("res://Experiments/Arena/foe/part.gd")
 const Haunt = preload("res://Experiments/Arena/foe/haunt.gd")
+## The one colour on the Ghost once it's back, and only on the real one.
+const GHOST_EYES := Color(0.62, 0.2, 0.95)
 ## Seconds it lies there, and that it takes to get up.
 const LIES := 2.3
 const GATHERS := 1.3
@@ -101,6 +103,7 @@ func reset_at(at: Vector3) -> void:
 	brain.haunt = null
 	_lives = kind.lives
 	vitals.holds_on = _lives > 0
+	body.light_eyes(Color.BLACK, 0.0)
 	arm.reset()
 	brain.reset()
 	_stripped = 0
@@ -165,8 +168,11 @@ func _on_held_on() -> void:
 		haunt.end()
 		brain.haunt = null
 		vitals.holds_on = false
+		body.light_eyes(Color.BLACK, 0.0)
 		vitals.kill()
 		return
+	# Burning lower with every life it hasn't got.
+	body.light_eyes(GHOST_EYES, float(_lives) / kind.lives)
 	haunt.was_cut()
 	arm.go_down()
 
@@ -206,6 +212,7 @@ func go_beyond() -> void:
 	brush.stroke_tint = 1.0
 	brain.haunt = haunt
 	haunt.images.clear()
+	body.light_eyes(GHOST_EYES, 1.0)
 	risen.emit()
 	haunt.begin(self, rival)
 

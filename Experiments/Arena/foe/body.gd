@@ -11,6 +11,7 @@ const Region = preload("res://Experiments/Arena/cutting/region.gd")
 const Kind = preload("res://Experiments/Arena/foe/kind.gd")
 const Gash = preload("res://Experiments/Arena/cutting/gash.gd")
 const Figure = preload("res://Experiments/Arena/foe/figure.gd")
+const Blood = preload("res://Experiments/Arena/feel/blood.gd")
 const MASK = preload("res://Experiments/Arena/foe/mask.gdshader")
 
 ## A rigged model to be instead of plain shapes, if there is one.
@@ -56,6 +57,7 @@ var _fore: Array[Part] = []
 var _thigh: Array[Part] = []
 var _shin: Array[Part] = []
 var _mask: MeshInstance3D
+var _eyes: Array[MeshInstance3D] = []
 var _feet: Array[Vector3] = [Vector3.ZERO, Vector3.ZERO]
 var _foot_from: Array[Vector3] = [Vector3.ZERO, Vector3.ZERO]
 var _foot_step: Array[float] = [1.0, 1.0]
@@ -165,7 +167,7 @@ func _become_figure() -> void:
 		"pelvis": _hips, "spine_01": _chest, "neck_01": _head,
 		"upperarm_r": _upper[0], "lowerarm_r": _fore[0], "upperarm_l": _upper[1], "lowerarm_l": _fore[1],
 		"thigh_r": _thigh[0], "calf_r": _shin[0], "thigh_l": _thigh[1], "calf_l": _shin[1],
-	}, _inked, [robe_value, lacquer, straw])
+	}, _inked, [robe_value, lacquer, straw or not Blood.gore])
 	_chest.length = 0.45
 	_chest.radius = 0.19
 	_hips.radius = 0.16
@@ -280,6 +282,36 @@ func strip(part: Part, region: Region, push: Vector3) -> void:
 	mask_on = _mask.visible
 
 
+## Something burning behind the eyeholes of its mask, so the real one can be
+## told from what it throws around itself. Brightness 0 puts it out.
+## Placed for the hannya mask's holes; another mask would need its own.
+func light_eyes(color: Color, brightness: float) -> void:
+	if _eyes.is_empty() and (brightness <= 0.0 or _mask == null):
+		return
+	if _eyes.is_empty():
+		var lit := StandardMaterial3D.new()
+		lit.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		lit.roughness = 1.0
+		var drop := SphereMesh.new()
+		drop.radius = 1.0
+		drop.height = 2.0
+		drop.radial_segments = 12
+		drop.rings = 6
+		for side in [1.0, -1.0]:
+			var eye := MeshInstance3D.new()
+			eye.mesh = drop
+			eye.material_override = lit
+			eye.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			eye.layers = _mask.layers
+			eye.transform = Transform3D(Basis(Vector3.BACK, side * 0.34).scaled(Vector3(0.019, 0.008, 0.006)), Vector3(side * 0.038, 1.697, 0.112))
+			_mask.add_child(eye)
+			_eyes.append(eye)
+	var lit: StandardMaterial3D = _eyes[0].material_override
+	lit.albedo_color = color.darkened(0.55 * (1.0 - clampf(brightness, 0.0, 1.0)))
+	for eye in _eyes:
+		eye.visible = brightness > 0.0
+
+
 ## Nothing on over its clothes, but its face.
 func bare() -> void:
 	for part in parts:
@@ -362,7 +394,7 @@ func gash(part: Part, at: Vector3, travel: Vector3, from: Vector3, length: float
 	out = out.normalized()
 	var mark := Gash.new()
 	part.add_child(mark)
-	mark.straw = straw
+	mark.straw = straw or not Blood.gore
 	mark.lay(at + out * part.radius * 0.7, out, travel, minf(length, part.length * 1.2))
 
 

@@ -7,6 +7,7 @@ extends CanvasLayer
 const Word = preload("res://Experiments/Arena/menu/word.gd")
 const Slide = preload("res://Experiments/Arena/menu/slide.gd")
 const STROKE = preload("res://Experiments/Arena/menu/stroke.gdshader")
+const Blood = preload("res://Experiments/Arena/feel/blood.gd")
 
 const SAVED := "user://settings.cfg"
 ## Mouse speeds, at either end of the line.
@@ -14,6 +15,10 @@ const SPEEDS := Vector2(0.0006, 0.0052)
 
 signal begin(with_lessons: bool)
 signal front_wanted
+signal gore_changed
+
+## The testing keys, off for anyone just playing.
+static var developer := false
 
 @export var player: CharacterBody3D
 @export var shot: Camera3D
@@ -126,6 +131,8 @@ func _options(from: String) -> void:
 	var full := DisplayServer.window_get_mode() in [DisplayServer.WINDOW_MODE_FULLSCREEN, DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN]
 	_lay_out([
 		["Full screen: %s" % ("yes" if full else "no"), _toggle_full],
+		["Gore: %s" % ("on" if Blood.gore else "off"), _toggle_gore],
+		["Developer mode: %s" % ("on" if developer else "off"), _toggle_developer],
 		["Back", _front if from == "front" else _pause_words],
 	], "Options", 92)
 	var rows: Control = _words.get_child(0)
@@ -149,9 +156,24 @@ func _toggle_full() -> void:
 	_options(_options_from)
 
 
+func _toggle_gore() -> void:
+	Blood.gore = not Blood.gore
+	_save()
+	gore_changed.emit()
+	_options(_options_from)
+
+
+func _toggle_developer() -> void:
+	developer = not developer
+	_save()
+	_options(_options_from)
+
+
 func _save() -> void:
 	var file := ConfigFile.new()
+	file.set_value("developer", "on", developer)
 	file.set_value("player", "mouse_speed", player.mouse_sensitivity)
+	file.set_value("blood", "red", Blood.gore)
 	file.set_value("window", "full", DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN)
 	file.save(SAVED)
 
@@ -161,6 +183,8 @@ func _load() -> void:
 	if file.load(SAVED) != OK:
 		return
 	player.mouse_sensitivity = file.get_value("player", "mouse_speed", player.mouse_sensitivity)
+	Blood.gore = file.get_value("blood", "red", true)
+	developer = file.get_value("developer", "on", false)
 	if file.get_value("window", "full", false):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 

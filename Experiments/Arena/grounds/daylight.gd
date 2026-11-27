@@ -3,6 +3,7 @@ extends Node
 ## Turns the hour: N goes on to the next. Everything eases over, paper and all.
 
 const Hour = preload("res://Experiments/Arena/grounds/hour.gd")
+const Menu = preload("res://Experiments/Arena/menu/main_menu.gd")
 
 signal turned(hour: Hour)
 
@@ -23,7 +24,7 @@ func _ready():
 
 
 func _unhandled_key_input(event):
-	if event.pressed and not event.echo and event.physical_keycode == KEY_N:
+	if Menu.developer and event.pressed and not event.echo and event.physical_keycode == KEY_N:
 		_go_to((_now + 1) % hours.size(), takes)
 
 

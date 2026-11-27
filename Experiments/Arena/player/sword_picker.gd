@@ -4,6 +4,7 @@ extends CanvasLayer
 ## mouse and brings up the panel; click the world to go back to it.
 
 const Look = preload("res://Experiments/Arena/player/sword_look.gd")
+const Menu = preload("res://Experiments/Arena/menu/main_menu.gd")
 
 @export var brush: Node
 @export var look: Look
@@ -67,7 +68,7 @@ func _process(_delta):
 
 
 func _unhandled_key_input(event):
-	if not event.pressed or event.echo or event.physical_keycode != KEY_C:
+	if not Menu.developer or not event.pressed or event.echo or event.physical_keycode != KEY_C:
 		return
 	var at := -1
 	if look.blade > 0.0:

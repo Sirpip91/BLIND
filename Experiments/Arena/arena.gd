@@ -9,6 +9,8 @@ const Part = preload("res://Experiments/Arena/foe/part.gd")
 const Piece = preload("res://Experiments/Arena/cutting/piece.gd")
 const Encounter = preload("res://Experiments/Arena/encounter.gd")
 const Aspect = preload("res://Experiments/Arena/player/aspect.gd")
+const Blood = preload("res://Experiments/Arena/feel/blood.gd")
+const Menu = preload("res://Experiments/Arena/menu/main_menu.gd")
 const FOE = preload("res://Experiments/Arena/foe/foe.tscn")
 
 ## The last few exchanges, for anyone watching.
@@ -90,6 +92,7 @@ func _ready():
 	shrine.told.connect(func(text): hint.text = text)
 	main_menu.begin.connect(_start_out)
 	main_menu.front_wanted.connect(_to_front)
+	main_menu.gore_changed.connect(func(): feel.spill(encounters[_now].tutorial or not Blood.gore))
 	var listed := PackedStringArray()
 	var many := 0
 	for fight in encounters:
@@ -166,7 +169,7 @@ func _open_eyes(seconds: float) -> void:
 
 
 func _unhandled_key_input(event):
-	if not event.pressed or event.echo or main_menu.at_front:
+	if not Menu.developer or not event.pressed or event.echo or main_menu.at_front:
 		return
 	var key: int = event.physical_keycode
 	if key == KEY_R:
@@ -246,7 +249,7 @@ func _set_out(which: int) -> void:
 	veil.modulate.a = 0.0
 	_clear_away()
 	var fight := encounters[which]
-	feel.spill(fight.tutorial)
+	feel.spill(fight.tutorial or not Blood.gore)
 	director.reset(fight.at_once, fight.spacing, fight.in_view)
 	player.locked = fight.locked
 	player.movement_locked = false
